@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <title>AI 小遊戲</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<meta charset="UTF-8">
+<title>AI 遊戲整合版</title>
 
-<!-- LOGO -->
-<div class="header">
-    <img src="logo.png" id="logo">
-    <h1>點擊方塊遊戲</h1>
-</div>
-
-<!-- 遊戲資訊 -->
-<p>分數：<span id="score">0</span></p>
-<button onclick="startGame()">開始遊戲</button>
-
-<!-- 遊戲區 -->
-<div id="gameArea">
-    <div id="box"></div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-
+<!-- CSS 直接寫在裡面 -->
+<style>
 body {
     text-align: center;
     font-family: Arial;
-    background-color: #f0f0f0;
+    background: #eef;
 }
 
-/* LOGO */
 #logo {
-    width: 150px;
+    width: 120px;
+    margin-top: 10px;
 }
 
-/* 遊戲區 */
 #gameArea {
-    width: 100%;
+    width: 90%;
     height: 400px;
-    border: 2px solid black;
-    margin-top: 20px;
+    margin: auto;
+    border: 3px solid black;
     position: relative;
-    background-color: white;
+    background: white;
 }
 
-/* 方塊 */
 #box {
-    width: 80px;
-    height: 80px;
-    background-color: red;
+    width: 70px;
+    height: 70px;
+    background: red;
     position: absolute;
     cursor: pointer;
 }
 
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+</style>
+
+</head>
+<body>
+
+<!-- LOGO（直接用圖片檔） -->
+<img src="logo.png" id="logo">
+<h1>AI 點擊遊戲</h1>
+
+<p>分數：<span id="score">0</span></p>
+<button onclick="startGame()">開始遊戲</button>
+
+<div id="gameArea">
+    <div id="box"></div>
+</div>
+
+<!-- JS 也寫在裡面 -->
+<script>
 let score = 0;
-let box = document.getElementById("box");
-let gameStarted = false;
+let started = false;
+
+const box = document.getElementById("box");
 
 function moveBox() {
-    let gameArea = document.getElementById("gameArea");
+    let area = document.getElementById("gameArea");
 
-    let x = Math.random() * (gameArea.clientWidth - 80);
-    let y = Math.random() * (gameArea.clientHeight - 80);
+    let x = Math.random() * (area.clientWidth - 70);
+    let y = Math.random() * (area.clientHeight - 70);
 
     box.style.left = x + "px";
     box.style.top = y + "px";
@@ -72,15 +73,19 @@ function moveBox() {
 
 function startGame() {
     score = 0;
-    gameStarted = true;
+    started = true;
     document.getElementById("score").innerText = score;
     moveBox();
 }
 
-box.addEventListener("click", function() {
-    if (!gameStarted) return;
+box.addEventListener("click", () => {
+    if (!started) return;
 
     score++;
     document.getElementById("score").innerText = score;
     moveBox();
 });
+</script>
+
+</body>
+</html>
